@@ -1,0 +1,35 @@
+{
+  "version": "0.0.2",
+  "harness": "0.2.0-rc.2",
+  "model": "deepseek-flash",
+  "effort": "high",
+  "status": "completed",
+  "answer": "42",
+  "language": "en",
+  "tools": [
+    {
+      "type": "tool_call",
+      "callId": "call_00_ET_InJJTWex65UfYesfYAPD9574",
+      "tool": "mcp__qa_math__fixture_add",
+      "input": {
+        "a": 19,
+        "b": 23
+      },
+      "seq": 3,
+      "at": "2026-10-09T03:51:20.984160+00:00"
+    },
+    {
+      "type": "tool_result",
+      "callId": "call_00_ET_InJJTWex65UfYesfYAPD9574",
+      "status": "completed",
+      "result": "42",
+      "seq": 4,
+      "at": "2026-10-09T03:51:21.008940+00:00"
+    }
+  ],
+  "english_resume": {
+    "status": "completed",
+    "answer": "I added 19 and 23 using the qa_math fixture_add tool, and the returned result was 42.",
+    "language": "en"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "version": "0.0.2",
+  "checks": [
+    "keyboard-and-clamp:setting-language",
+    "keyboard-and-clamp:setting-theme",
+    "keyboard-and-clamp:setting-background",
+    "keyboard-and-clamp:setting-style",
+    "keyboard-and-clamp:model-name",
+    "keyboard-and-clamp:model-effort",
+    "keyboard-and-clamp:tick-count",
+    "keyboard-and-clamp:statistics-range",
+    "keyboard-and-clamp:tool-transport",
+    "select-commit-typeahead-tab-outside",
+    "pin-archive-restore-preserve-user-text",
+    "english-domain-replay-events",
+    "theme:light",
+    "theme:dark",
+    "theme:warm",
+    "language-and-font-persistence",
+    "mobile-layout-and-menu",
+    "reduced-motion",
+    "english-help:backup-help.html",
+    "english-help:metric-notes.html"
+  ],
+  "errors": [],
+  "viewportChecks": [
+    "1440x1000",
+    "390x844"
+  ],
+  "themes": [
+    "light",
+    "dark",
+    "warm"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "menuInputToNextFrameP95Ms": 17.80000000447035,
+  "fontChangeJavaScriptP95Ms": 0.7999999970197678,
+  "idleFrameGapP95Ms": 17.799999997019768,
+  "longTasksDuringSample": 0,
+  "menuTransition": "0.14s, 0.14s, 0.14s, 0.14s",
+  "scope": "Headless Edge on this Windows computer; these are local samples, not a guarantee for every device.",
+  "version": "0.0.2"
+}

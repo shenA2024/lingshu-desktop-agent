@@ -73,17 +73,17 @@ window.LingshuScene = (() => {
         halos+=`<ellipse cx="${px}" cy="${py}" rx="${Math.max(1,verification.bound*unitX*Math.SQRT2)}" ry="${Math.max(1,verification.bound*unitY*Math.SQRT2)}" fill="${stroke}" fill-opacity=".07" stroke="${stroke}" stroke-dasharray="3 4" stroke-opacity=".65"/><path d="M${px-3} ${py}h6M${px} ${py-3}v6" stroke="${stroke}"/>`;
         if (failed && verification.distance!==null) {
           const mx=(px+x)/2,my=(py+y)/2;
-          halos+=`<path d="M${px} ${py}L${x} ${y}" stroke="var(--warning)" stroke-dasharray="4 4"/><rect x="${mx-37}" y="${my-24}" width="74" height="19" rx="4" fill="var(--warning-soft)"/><text x="${mx}" y="${my-11}" text-anchor="middle" fill="var(--warning)" font-size="11">误差 ${verification.distance.toFixed(2)}</text>`;
+          halos+=`<path d="M${px} ${py}L${x} ${y}" stroke="var(--warning)" stroke-dasharray="4 4"/><rect x="${mx-37}" y="${my-24}" width="74" height="19" rx="4" fill="var(--warning-soft)"/><text x="${mx}" y="${my-11}" text-anchor="middle" fill="var(--warning)" font-size="11">${tr("误差")} ${verification.distance.toFixed(2)}</text>`;
         }
       }
       const isWhale=settings.get('style')==='whale' && settings.get('whale') && index===0;
       const selected=entity===id, scale=compact?.7:.95;
       const radius=isWhale?(compact?28:36):18;
       const marker=index===0?'<path d="M0-10L9 5L0 11L-9 5Z"/>':index===1?'<rect x="-8" y="-8" width="16" height="16" rx="2"/>':'<circle r="9"/>';
-      actors+=`<g class="entity-target scene-actor" data-entity="${escapeText(id)}" data-actor="${escapeText(id)}" transform="translate(${x} ${y})" tabindex="0" role="button" aria-label="查看${escapeText(e.category)}" style="--motion-phase:-${Math.round(performance.now()%5000)}ms"><circle r="${radius}" fill="${hue}" fill-opacity="${selected?.12:.035}" stroke="${hue}" stroke-opacity="${selected?.6:0}" stroke-width="1.2"/>${isWhale?`<g transform="scale(${scale})">${whale()}</g>`:`<ellipse cy="9" rx="13" ry="4" fill="${hue}" opacity=".09"/><g fill="var(--paper)" stroke="${hue}" stroke-width="1.3">${marker}</g><circle r="3.2" fill="${hue}"/>`}</g>`;
+      actors+=`<g class="entity-target scene-actor" data-entity="${escapeText(id)}" data-actor="${escapeText(id)}" transform="translate(${x} ${y}${tr(")\" tabindex=\"0\" role=\"button\" aria-label=\"查看")}${escapeText(tr(e.category))}" style="--motion-phase:-${Math.round(performance.now()%5000)}ms"><circle r="${radius}" fill="${hue}" fill-opacity="${selected?.12:.035}" stroke="${hue}" stroke-opacity="${selected?.6:0}" stroke-width="1.2"/>${isWhale?`<g transform="scale(${scale})">${whale()}</g>`:`<ellipse cy="9" rx="13" ry="4" fill="${hue}" opacity=".09"/><g fill="var(--paper)" stroke="${hue}" stroke-width="1.3">${marker}</g><circle r="3.2" fill="${hue}"/>`}</g>`;
       // The exact observed point is distinct from any animated illustration.
       actors+=`<circle class="observation-point" cx="${x}" cy="${y}" r="2.6" fill="${hue}" stroke="var(--paper)" stroke-width="1" pointer-events="none"/>`;
-      const labelWidth=e.category.length*12+18;
+      const labelWidth=tr(e.category).length*(document.documentElement.lang==='en'?7:12)+18;
       const lx=Math.max(5,Math.min(width-labelWidth-5,x-labelWidth/2));
       let ly=Math.max(5,y-(isWhale?(compact?40:48):33));
       for (const offset of [0,-26,54,-52,80]) {
@@ -91,10 +91,10 @@ window.LingshuScene = (() => {
         if (!placed.some(p=>lx<p.x+p.width+5&&lx+labelWidth+5>p.x&&candidate<p.y+25&&candidate+25>p.y)) {ly=candidate;break;}
       }
       placed.push({x:lx,y:ly,width:labelWidth});
-      labels+=`<g pointer-events="none"><rect x="${lx}" y="${ly}" width="${labelWidth}" height="22" rx="4" fill="var(--paper)" fill-opacity=".94"/><text x="${lx+labelWidth/2}" y="${ly+15}" fill="var(--ink)" font-size="12" text-anchor="middle">${escapeText(e.category)}</text></g>`;
+      labels+=`<g pointer-events="none"><rect x="${lx}" y="${ly}" width="${labelWidth}" height="22" rx="4" fill="var(--paper)" fill-opacity=".94"/><text x="${lx+labelWidth/2}" y="${ly+15}" fill="var(--ink)" font-size="12" text-anchor="middle">${escapeText(tr(e.category))}</text></g>`;
     });
     const water=settings.get('background')==='ocean';
-    container.innerHTML=`<svg class="scene-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="场景实体：${settings.get('style')==='radar'?'雷达沙盘':'鲸鱼演示'}随观测位置更新，圆点为准确观测位置"><rect width="${width}" height="${height}" fill="var(--scene-bg)"/>${water?ocean(width,height):''}<g aria-hidden="true" fill="var(--muted)" font-family="Consolas,monospace" font-size="9" letter-spacing="1"><text x="24" y="26">OBSERVATION / ${frameIndex===null?'LIVE':'REPLAY'}</text><text x="${width-24}" y="26" text-anchor="end">24 × 24 · XZ</text></g><polygon points="${side}" fill="var(--scene-side)"/><polygon points="${polygon}" fill="var(--scene-plane)" stroke="var(--scene-edge)" stroke-width=".7" stroke-linejoin="round"/>${settings.get('style')==='radar'?radar(point,unitX,unitY):''}${grid}${traces}${halos}${actors}${labels}${settings.get('grid')?`<text x="${corners[1][0]-4}" y="${corners[1][1]-10}" fill="var(--muted)" font-size="10" text-anchor="end">X</text><text x="${corners[3][0]+4}" y="${corners[3][1]-10}" fill="var(--muted)" font-size="10">Z</text>`:''}</svg>`;
+    container.innerHTML=`<svg class="scene-svg" viewBox="0 0 ${width} ${height}${tr("\" role=\"img\" aria-label=\"场景实体：")}${settings.get('style')==='radar'?tr('雷达沙盘'):tr('鲸鱼演示')}${tr("随观测位置更新，圆点为准确观测位置")}"><rect width="${width}" height="${height}" fill="var(--scene-bg)"/>${water?ocean(width,height):''}<g aria-hidden="true" fill="var(--muted)" font-family="Consolas,monospace" font-size="9" letter-spacing="1"><text x="24" y="26">OBSERVATION / ${frameIndex===null?'LIVE':'REPLAY'}</text><text x="${width-24}" y="26" text-anchor="end">24 × 24 · XZ</text></g><polygon points="${side}" fill="var(--scene-side)"/><polygon points="${polygon}" fill="var(--scene-plane)" stroke="var(--scene-edge)" stroke-width=".7" stroke-linejoin="round"/>${settings.get('style')==='radar'?radar(point,unitX,unitY):''}${grid}${traces}${halos}${actors}${labels}${settings.get('grid')?`<text x="${corners[1][0]-4}" y="${corners[1][1]-10}" fill="var(--muted)" font-size="10" text-anchor="end">X</text><text x="${corners[3][0]+4}" y="${corners[3][1]-10}" fill="var(--muted)" font-size="10">Z</text>`:''}</svg>`;
     if (settings.motionEnabled() && !document.hidden && frameIndex===null && previous?.identity===identity && previous.tick+1===frame.tick && previous.width===width && previous.height===height && previous.live) {
       container.querySelectorAll('[data-actor]').forEach(actor => {
         const id=actor.dataset.actor, before=previous.positions[id], after=positions[id];
