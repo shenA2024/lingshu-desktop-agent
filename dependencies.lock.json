@@ -1,0 +1,14 @@
+{
+  "lingshu": {
+    "url": "https://codeload.github.com/FuRongJun-1999/lingshu/zip/212d4691ded095eb52fb23439cafac4d499ca8bd",
+    "sha256": "d24783336f337d61798ba0cdd96dbd953cac66e1ea8ba2dcfad531d9490e4938",
+    "commit": "212d4691ded095eb52fb23439cafac4d499ca8bd",
+    "resources": ["lingshu/world/scene_simulator.py", "lingshu/world/world_model.py", "lingshu/world/brain_store.py", "LICENSE"]
+  },
+  "dsh-memory": {
+    "url": "https://codeload.github.com/FuRongJun-1999/dsh-memory/zip/297e0b2a0482180092c8ddb480386ea4bd544bb6",
+    "sha256": "d3984995296184f5f19e286dffd2db21328196c6dab96f315b1d31fc0102efd6",
+    "commit": "297e0b2a0482180092c8ddb480386ea4bd544bb6",
+    "resources": ["md_cg/mcp_server.py", "md_cg/tokens.py", "utf8_boot.py", "package.json", "LICENSE"]
+  }
+}

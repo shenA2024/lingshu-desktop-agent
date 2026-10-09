@@ -1,0 +1,287 @@
+{
+  "version": "0.3.1-preview",
+  "checks": [
+    {
+      "name": "Search finds answer text beyond title",
+      "passed": true
+    },
+    {
+      "name": "Model status names current configuration",
+      "passed": true
+    },
+    {
+      "name": "light/1440: page fits",
+      "passed": true
+    },
+    {
+      "name": "light/1440: composer visible",
+      "passed": true
+    },
+    {
+      "name": "light/1440: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "light/1440: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "light/1440: backup available",
+      "passed": true
+    },
+    {
+      "name": "light/1280: page fits",
+      "passed": true
+    },
+    {
+      "name": "light/1280: composer visible",
+      "passed": true
+    },
+    {
+      "name": "light/1280: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "light/1280: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "light/1280: backup available",
+      "passed": true
+    },
+    {
+      "name": "light/1024: page fits",
+      "passed": true
+    },
+    {
+      "name": "light/1024: composer visible",
+      "passed": true
+    },
+    {
+      "name": "light/1024: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "light/1024: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "light/1024: backup available",
+      "passed": true
+    },
+    {
+      "name": "light/390: page fits",
+      "passed": true
+    },
+    {
+      "name": "light/390: composer visible",
+      "passed": true
+    },
+    {
+      "name": "light/390: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "light/390: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "light/390: backup available",
+      "passed": true
+    },
+    {
+      "name": "dark/1440: page fits",
+      "passed": true
+    },
+    {
+      "name": "dark/1440: composer visible",
+      "passed": true
+    },
+    {
+      "name": "dark/1440: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "dark/1440: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "dark/1440: backup available",
+      "passed": true
+    },
+    {
+      "name": "dark/1280: page fits",
+      "passed": true
+    },
+    {
+      "name": "dark/1280: composer visible",
+      "passed": true
+    },
+    {
+      "name": "dark/1280: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "dark/1280: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "dark/1280: backup available",
+      "passed": true
+    },
+    {
+      "name": "dark/1024: page fits",
+      "passed": true
+    },
+    {
+      "name": "dark/1024: composer visible",
+      "passed": true
+    },
+    {
+      "name": "dark/1024: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "dark/1024: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "dark/1024: backup available",
+      "passed": true
+    },
+    {
+      "name": "dark/390: page fits",
+      "passed": true
+    },
+    {
+      "name": "dark/390: composer visible",
+      "passed": true
+    },
+    {
+      "name": "dark/390: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "dark/390: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "dark/390: backup available",
+      "passed": true
+    },
+    {
+      "name": "warm/1440: page fits",
+      "passed": true
+    },
+    {
+      "name": "warm/1440: composer visible",
+      "passed": true
+    },
+    {
+      "name": "warm/1440: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "warm/1440: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "warm/1440: backup available",
+      "passed": true
+    },
+    {
+      "name": "warm/1280: page fits",
+      "passed": true
+    },
+    {
+      "name": "warm/1280: composer visible",
+      "passed": true
+    },
+    {
+      "name": "warm/1280: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "warm/1280: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "warm/1280: backup available",
+      "passed": true
+    },
+    {
+      "name": "warm/1024: page fits",
+      "passed": true
+    },
+    {
+      "name": "warm/1024: composer visible",
+      "passed": true
+    },
+    {
+      "name": "warm/1024: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "warm/1024: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "warm/1024: backup available",
+      "passed": true
+    },
+    {
+      "name": "warm/390: page fits",
+      "passed": true
+    },
+    {
+      "name": "warm/390: composer visible",
+      "passed": true
+    },
+    {
+      "name": "warm/390: deletion dialog fits",
+      "passed": true
+    },
+    {
+      "name": "warm/390: data controls fit",
+      "passed": true
+    },
+    {
+      "name": "warm/390: backup available",
+      "passed": true
+    },
+    {
+      "name": "Backup downloads ZIP",
+      "passed": true
+    },
+    {
+      "name": "Cancel deletion retains record",
+      "passed": true
+    },
+    {
+      "name": "Confirmed deletion removes application record",
+      "passed": true
+    },
+    {
+      "name": "Deletion returns to new chat",
+      "passed": true
+    },
+    {
+      "name": "Restored history marked clearly",
+      "passed": true
+    },
+    {
+      "name": "Restored history cannot send",
+      "passed": true
+    },
+    {
+      "name": "New conversation after restore can be composed",
+      "passed": true
+    },
+    {
+      "name": "No browser errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

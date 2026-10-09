@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-09",
+  "runtime_version": "0.2.0-rc.2",
+  "model": "deepseek-flash",
+  "effort": "high",
+  "upstream_commit": "212d4691ded095eb52fb23439cafac4d499ca8bd",
+  "real_run": {
+    "id": "0e6ecf32bd19",
+    "completed_ticks": 4,
+    "hits": 11,
+    "total": 12,
+    "memory_recalled": true
+  },
+  "cancelled_run": {
+    "id": "7faf9318f104",
+    "completed_ticks": 2,
+    "status": "cancelled"
+  },
+  "checks": {
+    "real_model_chain": true,
+    "same_run_completed": true,
+    "answer_matches_engine": true,
+    "same_summary_recalled": true,
+    "reasoning_excluded_from_ui_events": true,
+    "resume_after_server_restart": true,
+    "real_agent_stop": true,
+    "owned_experiment_stopped": true
+  },
+  "passed": true
+}

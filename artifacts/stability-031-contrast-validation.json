@@ -1,0 +1,295 @@
+{
+  "checks": 2683,
+  "minimum": 4.567781308771898,
+  "failures": [],
+  "results": [
+    {
+      "label": "light/agent",
+      "checks": 62,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/workspace",
+      "checks": 47,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/results",
+      "checks": 59,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/events",
+      "checks": 33,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/memory",
+      "checks": 38,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/connections",
+      "checks": 49,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/settings-appearance",
+      "checks": 71,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/settings-features",
+      "checks": 63,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/settings-scene",
+      "checks": 67,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/settings-general",
+      "checks": 69,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/model-dialog",
+      "checks": 80,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/delete-dialog",
+      "checks": 68,
+      "min": 4.567781308771898,
+      "failures": []
+    },
+    {
+      "label": "light/new-task",
+      "checks": 63,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/open-help",
+      "checks": 54,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/open-entities",
+      "checks": 60,
+      "min": 4.66279688687321,
+      "failures": []
+    },
+    {
+      "label": "light/svg-palettes",
+      "checks": 6,
+      "min": 5.099019687446131,
+      "failures": []
+    },
+    {
+      "label": "dark/agent",
+      "checks": 62,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/workspace",
+      "checks": 47,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/results",
+      "checks": 59,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/events",
+      "checks": 33,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/memory",
+      "checks": 38,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/connections",
+      "checks": 57,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/settings-appearance",
+      "checks": 71,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/settings-features",
+      "checks": 63,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/settings-scene",
+      "checks": 67,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/settings-general",
+      "checks": 69,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/model-dialog",
+      "checks": 80,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/delete-dialog",
+      "checks": 68,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/new-task",
+      "checks": 63,
+      "min": 4.859103202392325,
+      "failures": []
+    },
+    {
+      "label": "dark/open-help",
+      "checks": 54,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/open-entities",
+      "checks": 60,
+      "min": 5.338070668208422,
+      "failures": []
+    },
+    {
+      "label": "dark/svg-palettes",
+      "checks": 6,
+      "min": 5.8227713403029755,
+      "failures": []
+    },
+    {
+      "label": "warm/agent",
+      "checks": 62,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/workspace",
+      "checks": 47,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/results",
+      "checks": 59,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/events",
+      "checks": 33,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/memory",
+      "checks": 38,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/connections",
+      "checks": 57,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/settings-appearance",
+      "checks": 71,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/settings-features",
+      "checks": 63,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/settings-scene",
+      "checks": 67,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/settings-general",
+      "checks": 69,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/model-dialog",
+      "checks": 80,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/delete-dialog",
+      "checks": 68,
+      "min": 4.578966107177443,
+      "failures": []
+    },
+    {
+      "label": "warm/new-task",
+      "checks": 63,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/open-help",
+      "checks": 54,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/open-entities",
+      "checks": 60,
+      "min": 4.59180321695953,
+      "failures": []
+    },
+    {
+      "label": "warm/svg-palettes",
+      "checks": 6,
+      "min": 5.203673811965096,
+      "failures": []
+    }
+  ]
+}

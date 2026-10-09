@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>灵枢 · 桌面 Agent 0.0.1</title>
+  <script src="/static/preferences.js"></script>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/scene.js"></script>
+  <script defer src="/static/app.js"></script>
+  <script defer src="/static/agent.js"></script>
+</head>
+<body>
+  <aside class="sidebar" aria-label="功能与实验">
+    <a href="#" class="brand" aria-label="灵枢首页"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.4"/><circle cx="16" cy="16" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M16 4v12l9 8" stroke="currentColor" stroke-width="1.4"/><circle cx="16" cy="16" r="2" fill="currentColor"/></svg></span><span class="nav-label">灵枢<small>WORLD MODEL LAB</small></span></a>
+    <button id="new-chat" class="new-task" aria-label="新对话" title="新对话"><span data-icon="plus"></span><span class="nav-label">新对话</span></button>
+    <button id="open-search" class="nav-item search-entry" aria-label="搜索功能和实验" title="搜索功能和实验"><span data-icon="search"></span><span class="nav-label">搜索</span><kbd>Ctrl K</kbd></button>
+    <nav aria-label="主导航">
+      <button class="nav-item" data-page="agent" aria-label="对话" title="对话"><span data-icon="message"></span><span class="nav-label">对话</span></button>
+      <button class="nav-item active" data-page="workspace" aria-label="世界场景" title="世界场景"><span data-icon="grid"></span><span class="nav-label">世界场景</span></button>
+      <button class="nav-item" data-page="results" aria-label="预测分析" title="预测分析"><span data-icon="sliders"></span><span class="nav-label">预测分析</span></button>
+      <details id="tools-group" class="tools-group"><summary aria-label="更多功能"><span data-icon="layers"></span><span class="nav-label">更多功能</span><span class="group-chevron" data-icon="chevron"></span></summary><div class="tools-items">
+        <button class="nav-item" data-page="events" aria-label="执行记录" title="执行记录"><span data-icon="activity"></span><span class="nav-label">执行记录</span><span id="event-count" class="nav-count">0</span></button>
+        <button class="nav-item" data-page="memory" aria-label="记忆库" title="记忆库"><span data-icon="brain"></span><span class="nav-label">记忆库</span><span id="memory-nav-dot" class="nav-dot"></span></button>
+        <button class="nav-item" data-page="connections" aria-label="连接管理" title="连接管理"><span data-icon="plug"></span><span class="nav-label">连接管理</span></button>
+      </div></details>
+      <button id="open-history" class="nav-item rail-only" aria-label="全部实验" title="全部实验"><span data-icon="clock"></span><span class="nav-label">全部实验</span></button>
+      <button id="new-task" class="nav-item" aria-label="新建实验" title="新建实验"><span data-icon="plus"></span><span class="nav-label">新建实验</span></button>
+    </nav>
+    <div class="history-heading chat-history-heading"><span>最近对话</span><button id="open-chats" class="text-button" aria-label="全部对话">全部</button></div>
+    <div id="chat-sessions" class="sessions chat-sessions"></div>
+    <div class="history-heading"><span>最近实验</span><span id="history-count">0</span></div>
+    <div id="sessions" class="sessions"></div>
+    <button id="all-history" class="all-history">查看全部<span data-icon="arrow"></span></button>
+    <div class="sidebar-footer"><button id="open-settings" class="nav-item" aria-label="设置" title="设置"><span data-icon="settings"></span><span class="nav-label">设置</span></button></div>
+  </aside>
+
+  <div class="shell">
+    <header class="topbar"><div class="breadcrumb"><button id="toggle-sidebar" class="help-button" aria-label="收起侧栏" title="收起侧栏" aria-expanded="true"><span data-icon="panel"></span></button><span>灵枢</span><span class="slash">/</span><strong id="breadcrumb-page">实验台</strong></div><div class="topbar-right"><span id="service-status" class="connection-pill"><i class="status-dot"></i>正在连接</span><button id="open-help" class="help-button" aria-label="使用帮助" title="使用帮助"><span data-icon="info"></span></button></div></header>
+    <main id="agent-page" class="page agent-page">
+      <div class="agent-heading"><div><h1 id="chat-title">新对话</h1><span id="chat-subtitle" class="muted-label">DeepSeek Harness</span></div><div class="heading-actions"><button id="chat-rename" class="help-button" aria-label="重命名对话" title="重命名对话"><span data-icon="edit"></span></button><button id="chat-delete" class="help-button" aria-label="删除对话记录" title="删除对话记录"><span data-icon="trash"></span></button><button id="chat-export" class="help-button" aria-label="导出对话" title="导出对话"><span data-icon="download"></span></button><button id="agent-model" class="button ghost"><span data-icon="plug"></span><span id="agent-model-label">模型设置</span></button></div></div>
+      <div id="chat-scroll" class="chat-scroll"><section id="chat-welcome" class="chat-welcome"><span class="welcome-orbit" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="currentColor"/><circle cx="24" cy="24" r="10" stroke="currentColor"/><path d="M24 5v19l14 13" stroke="currentColor"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg></span><h2>从一个想法开始。</h2><p>聊一聊，做个实验，或找回之前的观察。</p><div class="chat-suggestions"><button data-prompt="灵枢现在能做什么？请简要介绍。">了解灵枢<span data-icon="arrow"></span></button><button data-prompt="运行一次 18 步的外部扰动实验，查询完成后解释扰动前后预测如何变化。">观察一次扰动<span data-icon="arrow"></span></button><button data-prompt="请召回最近实验的摘要，简要告诉我有什么值得继续观察。">回顾实验记忆<span data-icon="arrow"></span></button></div></section><div id="chat-messages" class="chat-messages" aria-label="对话消息"></div></div>
+      <div class="chat-bottom"><div id="chat-notice" class="chat-notice hidden" role="status"></div><form id="chat-form" class="chat-composer"><label class="sr-only" for="chat-input">发送给灵枢的消息</label><textarea id="chat-input" rows="2" maxlength="20000" placeholder="和灵枢聊聊，或描述一个实验…"></textarea><div class="chat-composer-actions"><span id="chat-progress" role="status">高强度思考 · 本机工具</span><button id="chat-stop" class="button ghost hidden" type="button"><span data-icon="stop"></span>停止</button><button id="chat-send" class="button primary" type="submit" disabled><span data-icon="arrow"></span><span>发送</span></button></div></form><p class="chat-footnote">Enter 发送 · Shift Enter 换行 · 结果可打开沙盘核对</p></div>
+    </main>
+    <main id="workspace-page" class="page hidden">
+      <div class="page-heading"><div><div class="eyebrow">观察 · 推断 · 验证</div><h1 id="task-title">世界场景</h1><div class="task-meta"><span id="task-state" class="state-badge">待运行</span><span id="workspace-summary" class="muted-label">3 个实体</span></div></div><div class="heading-actions"><button id="stop-button" class="button danger hidden"><span data-icon="stop"></span>停止运行</button><button id="workspace-new-task" class="button primary"><span data-icon="plus"></span>新建实验</button></div></div>
+      <section id="scene-content">
+        <div class="scene-card">
+          <div class="card-header"><div class="segmented" aria-label="视图切换"><button class="active" data-view="space">场景</button><button data-view="graph">认知图</button></div><span id="view-caption" class="sr-only">场景投影</span><div class="scene-tools"><button id="open-entities" class="button ghost" title="实体检查"><span data-icon="sliders"></span><span>实体</span></button><button id="open-results" class="button ghost" title="查看预测分析"><span data-icon="activity"></span><span>分析</span></button></div></div>
+          <div id="world-canvas" class="world-canvas" aria-label="实体位置和轨迹"></div>
+          <div class="scene-legend"><div id="view-legend"></div><span id="tick-label">第 0 / 18 步</span></div>
+          <div class="replay-area">
+            <details id="replay-details" class="replay-details"><summary><span>回放与验证</span><span id="verification-caption">运行后查看</span></summary>
+              <div class="playback"><button id="live-view" class="live-button active" title="回到最新观测"><span data-icon="radio"></span>最新</button><input id="playback" aria-label="回看时间步" type="range" min="0" max="0" value="0" disabled><span id="playback-label">尚未运行</span></div>
+              <div class="verification-strip"><div id="verification-bars" class="verification-bars" aria-label="每一步的验证结果"></div></div>
+            </details>
+            <button id="find-anomaly" class="anomaly-button" disabled><span data-icon="bolt"></span>定位异常</button>
+          </div>
+        </div>
+        <div id="completion-banner" class="completion-banner hidden"></div>
+        <div class="workspace-footnote"><span>每一次预测，都交给下一次观测验证。</span><button id="workspace-help" class="text-button">了解实验<span data-icon="arrow"></span></button></div>
+      </section>
+    </main>
+    <main id="results-page" class="page hidden">
+      <div class="page-heading"><div><h1>预测分析</h1><p id="analysis-run-label">选择或运行实验后查看结果。</p></div><button class="button ghost" data-back-scene>返回场景<span data-icon="arrow"></span></button></div>
+      <section class="analysis-card"><div class="inspector-heading"><strong>预测验证</strong><span id="inspector-mode" class="muted-label">准备就绪</span></div>          <div class="metric-grid"><div><span>已完成时间步</span><strong id="metric-tick">—<small> / 18</small></strong></div><div class="coverage-metric"><span>边界覆盖率</span><strong id="metric-rate">—</strong></div><div><span>异常观测</span><strong id="metric-anomalies">—</strong></div><div><span>图中实体</span><strong id="metric-entities">3</strong></div></div>
+          <details class="analysis-explainer"><summary>如何理解命中与边界？</summary><div class="metric-note"><span data-icon="info"></span><span>本实验为预设确定性场景，观测携带实体标识。命中表示误差小于边界；大边界不等于位置预测更准确。待验证项不计入分母。</span></div></details>
+          <section class="mode-statistics" aria-label="按预测模式统计"><div class="statistics-heading"><strong id="statistics-scope">实验汇总</strong><select id="statistics-range" aria-label="统计时间范围"><option value="run">实验汇总</option><option value="step">本步结果</option></select></div><div id="mode-statistics"></div><details class="statistics-explainer"><summary>单位与适用条件</summary><p class="statistics-note">误差与边界单位：场景空间单位。均值仅取已验证项。随机模式预测中心为当前位置；范围覆盖不代表准确猜中下一点。<a href="/static/metric-notes.html" target="_blank">查看边界推导条件</a></p></details></section>
+</section>
+      <details class="lifecycle-card"><summary>实验生命周期与记忆状态</summary><div id="pipeline" class="pipeline" aria-label="实验闭环进度"></div><button id="see-connections" class="text-button">查看连接详情<span data-icon="arrow"></span></button></details>
+    </main>
+    <main id="events-page" class="page hidden">
+      <div class="page-heading"><div><h1>执行记录</h1><p id="events-run-label">选择实验后查看完整执行记录。</p></div><a id="export-run" class="button ghost hidden" download><span data-icon="download"></span>导出 JSON</a></div>          <section class="timeline-section"><div class="section-heading"><h2><span data-icon="activity"></span><span id="timeline-title">运行轨迹</span></h2><span class="muted-label">来自实际工具执行</span></div><div id="events" class="events"><div class="empty-events"><span data-icon="activity"></span><p>点击「新建实验」，开始第一次运行。</p><small>每一步预测、观测和验证都会留下记录。</small></div></div></section>
+</main>
+    <main id="memory-page" class="page hidden">
+      <div class="page-heading"><div><h1>记忆库</h1></div><button id="open-memory-note" class="button primary"><span data-icon="plus"></span>写笔记</button></div>
+      <div class="memory-layout"><section class="memory-results"><form id="memory-search" class="search-box"><span data-icon="search"></span><input id="memory-query" placeholder="搜索记忆，例如：外部扰动" value="工作台" aria-label="记忆检索关键词"><button class="button primary" type="submit">召回</button></form><div class="section-heading"><h2>召回结果<span id="recall-count" class="tab-count">0</span></h2><span id="recall-meta" class="muted-label">等待检索</span></div><div id="memory-results"></div></section></div><details class="memory-isolation"><summary>关于这个独立记忆库</summary><div class="isolation-card"><span data-icon="lock"></span><strong>独立的演示记忆</strong><p>实验摘要和笔记使用独立库，不读取个人记忆。</p></div></details></main>
+    <main id="connections-page" class="page hidden">
+      <div class="page-heading"><div><h1>连接管理</h1></div></div>
+      <div class="connection-grid"><section class="connection-card"><div class="connection-card-top"><span class="large-icon" data-icon="orbit"></span><span class="cap-state connected">已接入</span></div><h2>世界模型</h2><p>运行预设场景，推断行为、预测位置并用新观测验证。</p><div class="detail-row"><span>运行方式</span><strong>本机模拟</strong></div><div class="detail-row"><span>可用场景</span><strong>追逐 / 扰动 / 避让</strong></div></section><section class="connection-card"><div class="connection-card-top"><span class="large-icon" data-icon="brain"></span><span id="connection-memory-status" class="cap-state">连接中</span></div><h2>长期记忆</h2><p>实验摘要和笔记保存在独立库，可检索、召回。</p><code id="memory-root" class="path-block"></code><button id="reconnect-button" class="button ghost"><span data-icon="refresh"></span>重新连接记忆</button><p id="connection-memory-error" class="error-text hidden"></p></section><section class="connection-card wide"><div class="connection-card-top"><span class="large-icon" data-icon="plug"></span><span id="connection-agent-status" class="cap-state">检查中</span></div><h2>桌面 Agent</h2><p>DeepSeek Harness 负责对话、续聊与工具选择。实验与记忆操作可直接回看真实返回。</p><button id="connection-agent-settings" class="button ghost">模型设置<span data-icon="arrow"></span></button><details class="connection-config"><summary>其他客户端接入</summary><div class="code-heading"><strong>接入配置</strong><button id="copy-config" class="text-button"><span data-icon="copy"></span>复制</button></div><label class="privacy-toggle"><input id="show-local-paths" type="checkbox">显示本机绝对路径（复制始终使用有效路径）</label><pre id="mcp-config"></pre><p id="dsh-status-note"></p><div id="mcp-tools" class="tool-chips"></div><div class="integration-note"><span data-icon="info"></span><span>提供 6 个实验与记忆工具；可在对话中描述任务。</span></div></details></section></div>
+    </main>
+    
+  </div>
+  <dialog id="model-dialog" class="lab-dialog" aria-labelledby="model-dialog-title"><div class="dialog-heading"><div><h2 id="model-dialog-title">模型设置</h2><p>沿用本机 DeepSeek Harness。</p></div><button class="close-dialog" data-close="model-dialog" aria-label="关闭模型设置">×</button></div><form id="model-form" class="model-form"><label>Harness 可执行文件<input id="model-executable" required maxlength="1000" autocomplete="off"></label><div class="model-selects"><label>模型<select id="model-name"><option value="deepseek-flash">DeepSeek Flash</option><option value="deepseek-v4-pro">DeepSeek V4 Pro</option></select></label><label>思考强度<select id="model-effort"><option value="high">高</option><option value="max">最高</option></select></label></div><label class="checkbox-label"><input id="model-local-credentials" type="checkbox" checked>使用本机 Harness 的模型凭据</label><details><summary>使用独立 API 密钥</summary><label>API 密钥<input id="model-key" type="password" autocomplete="new-password" maxlength="512" placeholder="留空保留现有配置"></label><label class="checkbox-label"><input id="model-clear-key" type="checkbox">清除已保存的独立密钥</label><p class="muted-label">独立密钥由 Windows 加密，仅供当前系统用户使用。</p></details><p id="model-status" role="status" class="muted-label"></p><div class="model-form-actions"><button id="model-save" class="button primary" type="submit">保存设置</button><button id="model-refresh" class="button ghost" type="button">检查配置</button></div></form></dialog>
+  <dialog id="chats-dialog" class="lab-dialog" aria-labelledby="chats-dialog-title"><div class="dialog-heading"><h2 id="chats-dialog-title">全部对话</h2><button class="close-dialog" data-close="chats-dialog" aria-label="关闭对话历史">×</button></div><div class="dialog-search"><span data-icon="search"></span><input id="chats-query" type="search" placeholder="搜索名称或对话内容" aria-label="搜索名称或对话内容"></div><div id="all-chats" class="history-dialog-list"></div></dialog>
+  <dialog id="chat-delete-dialog" class="lab-dialog" aria-labelledby="chat-delete-heading"><div class="dialog-heading"><h2 id="chat-delete-heading">删除对话记录</h2><button class="close-dialog" data-close="chat-delete-dialog" aria-label="关闭删除对话">×</button></div><p id="chat-delete-title" class="delete-chat-title"></p><p class="muted-label">删除此对话的应用记录。实验、记忆和 Harness 原始会话会保留。</p><div class="model-form-actions"><button id="chat-delete-confirm" class="button danger" type="button">删除记录</button><button class="button ghost" data-close="chat-delete-dialog" type="button">保留</button></div></dialog>
+  <dialog id="chat-rename-dialog" class="lab-dialog" aria-labelledby="chat-rename-title"><div class="dialog-heading"><h2 id="chat-rename-title">重命名对话</h2><button class="close-dialog" data-close="chat-rename-dialog" aria-label="关闭重命名">×</button></div><form id="chat-rename-form" class="model-form"><label>名称<input id="chat-rename-input" required maxlength="100"></label><button class="button primary" type="submit">保存</button></form></dialog>
+  <dialog id="experiment-dialog" class="lab-dialog" aria-labelledby="experiment-dialog-title"><div class="dialog-heading"><div><h2 id="experiment-dialog-title">配置一个实验</h2></div><button class="close-dialog" data-close="experiment-dialog" aria-label="关闭实验配置">×</button></div>            <div class="run-composer dialog-composer">
+              <div class="composer-heading"><span data-icon="spark"></span><strong>开始一个实验</strong><span>无需模型密钥</span></div>
+              <div id="scenario-options" class="scenario-options"></div>
+              <label class="note-label" for="task-note">实验备注<span>用于记录本次实验，不自动解析为指令</span></label>
+              <textarea id="task-note" maxlength="1000" rows="2" placeholder="例如：观察扰动发生后，世界模型需要多久恢复稳定预测…"></textarea>
+              <div class="composer-bottom"><div class="run-settings"><label>时间步<select id="tick-count"><option value="18">18 步</option><option value="36">36 步</option><option value="60">60 步</option></select></label><label class="checkbox-label"><input id="save-memory" type="checkbox" checked>保存到记忆</label></div><button id="run-button" class="button primary"><span data-icon="play"></span>运行实验</button></div>
+            </div></dialog>
+  <dialog id="entity-dialog" class="lab-dialog entity-dialog" aria-labelledby="entity-dialog-title"><div class="dialog-heading"><h2 id="entity-dialog-title">本步实体检查</h2><button class="close-dialog" data-close="entity-dialog" aria-label="关闭实体检查">×</button></div>          <div class="inspector-section"><h3>场景实体<span id="entity-count">3</span></h3><div id="entities"></div><div id="entity-detail" class="entity-detail hidden"></div></div>
+</dialog>
+  <dialog id="note-dialog" class="lab-dialog" aria-labelledby="note-dialog-title"><div class="dialog-heading"><h2 id="note-dialog-title">写入独立记忆库</h2><button class="close-dialog" data-close="note-dialog" aria-label="关闭笔记">×</button></div><div class="note-card"><h2><span data-icon="edit"></span>记一条笔记</h2><p>写入同一个隔离记忆库，可用于下一次召回。</p><form id="remember-form"><textarea id="memory-note" rows="7" maxlength="8000" placeholder="今天观察到了什么？" required></textarea><button id="remember-button" type="submit" class="button primary"><span data-icon="plus"></span>写入记忆</button></form></div></dialog>
+  <dialog id="history-dialog" class="lab-dialog" aria-labelledby="history-dialog-title"><div class="dialog-heading"><h2 id="history-dialog-title">全部实验</h2><button class="close-dialog" data-close="history-dialog" aria-label="关闭实验历史">×</button></div><div class="dialog-search"><span data-icon="search"></span><input id="history-query" type="search" placeholder="搜索名称、备注或状态" aria-label="搜索实验历史" autocomplete="off"></div><div id="history-sessions" class="history-dialog-list"></div></dialog>
+  <dialog id="search-dialog" class="lab-dialog" aria-labelledby="search-dialog-title"><div class="dialog-heading"><h2 id="search-dialog-title">搜索</h2><button class="close-dialog" data-close="search-dialog" aria-label="关闭搜索">×</button></div><div class="dialog-search"><span data-icon="search"></span><input id="global-query" type="search" placeholder="查找功能或实验" aria-label="查找功能或实验" autocomplete="off"></div><div id="search-results" class="search-results"></div></dialog>
+  <dialog id="settings-dialog" class="lab-dialog settings-dialog" aria-labelledby="settings-dialog-title">
+    <div class="dialog-heading"><div><h2 id="settings-dialog-title">设置</h2><p>让工作台适合你的习惯。</p></div><button class="close-dialog" data-close="settings-dialog" aria-label="关闭设置">×</button></div>
+    <div class="settings-tabs" role="tablist" aria-label="设置分类">
+      <button id="settings-appearance-tab" data-settings-tab="appearance" role="tab" aria-selected="true" aria-controls="settings-appearance">外观</button>
+      <button id="settings-features-tab" data-settings-tab="features" role="tab" aria-selected="false" aria-controls="settings-features" tabindex="-1">功能</button>
+      <button id="settings-scene-tab" data-settings-tab="scene" role="tab" aria-selected="false" aria-controls="settings-scene" tabindex="-1">场景</button>
+      <button id="settings-general-tab" data-settings-tab="general" role="tab" aria-selected="false" aria-controls="settings-general" tabindex="-1">通用</button>
+    </div>
+    <div class="settings-content">
+      <section id="settings-appearance" data-settings-panel="appearance" role="tabpanel" aria-labelledby="settings-appearance-tab">
+        <h3 class="settings-section-title">外观</h3><p class="settings-description">少一点干扰，多一点思考的空间。</p>
+        <div class="theme-choices" aria-label="选择主题">
+          <button class="theme-choice" data-theme-choice="light" aria-pressed="false"><span class="theme-mini theme-mini-light" aria-hidden="true"><i></i><b><em></em></b></span><span>白天<small>纯净明亮</small></span><span class="theme-check" aria-hidden="true">✓</span></button>
+          <button class="theme-choice" data-theme-choice="dark" aria-pressed="false"><span class="theme-mini theme-mini-dark" aria-hidden="true"><i></i><b><em></em></b></span><span>夜间<small>安静深邃</small></span><span class="theme-check" aria-hidden="true">✓</span></button>
+          <button class="theme-choice" data-theme-choice="warm" aria-pressed="false"><span class="theme-mini theme-mini-warm" aria-hidden="true"><i></i><b><em></em></b></span><span>暖色<small>柔和纸感</small></span><span class="theme-check" aria-hidden="true">✓</span></button>
+        </div>
+        <label class="setting-row" for="setting-theme"><span>主题模式<small>也可以跟随系统自动切换明暗</small></span><select id="setting-theme" data-preference="theme"><option value="light">白天</option><option value="dark">夜间</option><option value="warm">暖色</option><option value="system">跟随系统</option></select></label>
+        <label class="setting-row" for="setting-background"><span>场景背景<small>只改变场景氛围，保持界面清爽</small></span><select id="setting-background" data-preference="background"><option value="clean">纯净</option><option value="warm">柔和</option><option value="ocean">海面</option></select></label>
+      </section>
+      <section id="settings-features" data-settings-panel="features" role="tabpanel" aria-labelledby="settings-features-tab" hidden>
+        <h3 class="settings-section-title">功能显示</h3>
+        <p class="settings-hint">选择要显示的功能。隐藏会收起入口，已有实验与数据保留。</p>
+        <label class="setting-row"><span>预测分析</span><input type="checkbox" role="switch" data-preference="results" aria-label="显示预测分析"></label>
+        <label class="setting-row"><span>认知图</span><input type="checkbox" role="switch" data-preference="graph" aria-label="显示认知图"></label>
+        <label class="setting-row"><span>执行记录</span><input type="checkbox" role="switch" data-preference="events" aria-label="显示执行记录"></label>
+        <label class="setting-row"><span>记忆库</span><input type="checkbox" role="switch" data-preference="memory" aria-label="显示记忆库"></label>
+        <label class="setting-row"><span>连接管理</span><input type="checkbox" role="switch" data-preference="connections" aria-label="显示连接管理"></label>
+      </section>
+      <section id="settings-scene" data-settings-panel="scene" role="tabpanel" aria-labelledby="settings-scene-tab" hidden>
+        <h3 class="settings-section-title">场景</h3>
+        <label class="setting-row" for="setting-style"><span>场景风格<small>统一色调的雷达沙盘，或小鲸鱼演示</small></span><select id="setting-style" data-preference="style"><option value="radar">雷达沙盘</option><option value="whale">鲸鱼 demo</option></select></label>
+        <label class="setting-row"><span>大肥鱼<small>鲸鱼 demo 中可开关角色插画</small></span><input type="checkbox" role="switch" data-preference="whale" aria-label="显示大肥鱼"></label>
+        <label class="setting-row"><span>动态效果<small id="motion-note">实时运行时平滑移动；回看与外部扰动直接显示观测位置。</small></span><input type="checkbox" role="switch" data-preference="motion" aria-label="动态效果"></label>
+        <label class="setting-row"><span>空间网格</span><input type="checkbox" role="switch" data-preference="grid" aria-label="显示空间网格"></label>
+        <label class="setting-row"><span>运动轨迹</span><input type="checkbox" role="switch" data-preference="trails" aria-label="显示运动轨迹"></label>
+        <label class="setting-row"><span>预测范围</span><input type="checkbox" role="switch" data-preference="predictions" aria-label="显示预测范围"></label>
+      </section>
+      <section id="settings-general" data-settings-panel="general" role="tabpanel" aria-labelledby="settings-general-tab" hidden>
+        <h3 class="settings-section-title">通用</h3>
+        <label class="setting-row" for="setting-language"><span>语言<small>英文界面准备中</small></span><select id="setting-language"><option value="zh-CN">简体中文</option><option value="en" disabled>English（准备中）</option></select></label>
+        <label class="setting-row"><span>收起侧栏</span><input id="setting-sidebar" type="checkbox" role="switch" data-preference="sidebar"></label>
+        <label class="setting-row"><span>展开回放与验证</span><input id="setting-replay" type="checkbox" role="switch" data-preference="replay"></label>
+        <label class="setting-row"><span>自动保存实验记忆<small>用于手动新建实验；对话发起的实验会保存摘要</small></span><input type="checkbox" role="switch" data-preference="autoMemory" aria-label="自动保存实验记忆"></label>
+        <div class="setting-row"><span>数据备份<small>保存对话、实验与记忆笔记，恢复后对话历史只读</small></span><button id="backup-data" class="button ghost" type="button">下载备份</button></div><p class="settings-hint"><a href="/static/backup-help.html" target="_blank" rel="noopener">备份与恢复说明</a></p>
+        <p class="settings-hint">偏好保存在当前浏览器。模型与工具的接入详情可在连接管理查看。</p>
+      </section>
+      <div class="settings-footer"><button id="reset-layout" class="button ghost">恢复默认设置</button><span>修改即时生效</span></div>
+    </div>
+  </dialog>
+  <dialog id="help-dialog" class="lab-dialog" aria-labelledby="help-dialog-title"><div class="dialog-heading"><h2 id="help-dialog-title">使用帮助</h2><button class="close-dialog" data-close="help-dialog" aria-label="关闭使用帮助">×</button></div><div class="help-content"><p>新建实验后，选择场景并运行。点击实体查看详情，展开「回放与验证」后，点击验证条回看某一步，或用「定位异常」直达预测失效的位置。</p><p>「预测分析」显示误差、边界与分模式结果；「执行记录」可查看原始返回和导出数据；「记忆库」用于召回与写笔记。</p><details><summary>实验边界与指标</summary><p>运行的是预设确定性场景，观测携带实体标识。备注用于记录。命中只表示误差落在边界内；覆盖率不代表通用智能水平。</p><a href="/static/metric-notes.html" target="_blank">查看指标说明</a></details></div></dialog>
+  <div id="toast" role="status" class="toast hidden"></div>
+</body>
+</html>

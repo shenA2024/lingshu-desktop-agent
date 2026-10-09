@@ -1,0 +1,41 @@
+name: Windows checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install locked dependencies
+        shell: pwsh
+        run: .\setup.ps1 -Dev -Python python
+      - name: Backend regression
+        shell: pwsh
+        run: .\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -v
+      - name: JavaScript syntax
+        shell: pwsh
+        run: |
+          node --check harness_runner.cjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check static/app.js
+          exit $LASTEXITCODE
+      - name: Build and verify release package
+        shell: pwsh
+        run: |
+          python .\scripts\build_release.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python .\scripts\build_release.py --verify

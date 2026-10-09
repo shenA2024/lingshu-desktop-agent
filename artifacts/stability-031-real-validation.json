@@ -1,0 +1,34 @@
+{
+  "version": "0.3.1-preview",
+  "date": "2026-10-09",
+  "runtime_version": "0.2.0-rc.2",
+  "model": "deepseek-flash",
+  "effort": "high",
+  "real_run": {
+    "id": "d43ac1ab2876",
+    "completed_ticks": 4,
+    "hits": 11,
+    "total": 12
+  },
+  "backup_restore": {
+    "chats": 1,
+    "runs": 1,
+    "notes": 1,
+    "destination": "isolated validation data"
+  },
+  "checks": {
+    "real_model_experiment_query_recall": true,
+    "real_mcp_owner_propagated": true,
+    "world_result_matches_answer": true,
+    "same_summary_recalled": true,
+    "current_config_verified_after_request": true,
+    "new_model_requires_validation": true,
+    "original_model_keeps_own_validation": true,
+    "restored_history_explicitly_read_only": true,
+    "restored_run_replays": true,
+    "restored_memory_recalled": true,
+    "successful_config_persists_after_restart": true,
+    "session_identity_persists_after_restart": true
+  },
+  "passed": true
+}

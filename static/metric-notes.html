@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>指标说明 · 灵枢世界模型实验台</title><link rel="stylesheet" href="/static/style.css"></head><body><main class="documentation">
+<h1>命中表示误差落在边界内</h1>
+<p>每项验证用新观测的 actual 与预测中心比较：<code>distance = 欧氏距离(predicted, actual)</code>，<code>hit = distance &lt; bound</code>。距离与边界都是场景空间单位。未观测项为 pending，不加入已验证分母。均值与最大误差仅来自已验证项；汇总覆盖率不是通用智能评分。</p>
+<p>exact 是上游的模式名称，表示点位置外推，仍有 0.55 单位容差。bounded_noisy 是方向外推加扰动容差；bounded_stochastic 与 chase_stochastic 的预测中心通常保持在当前位置，验证的是可达域覆盖。扩大边界可能提高命中率，不代表点位置误差更小。</p>
+<p>固定引擎的随机边界为 <code>round(max(0.5, v̂ × 1.5 + 0.2), 3)</code>。v̂ 是最近历史位移长度的平均值，按 3 位小数取整；无位移样本时用 0.3。它不是模拟器设定的 speed，所以不能把所有随机预测的边界恒写为 0.725。</p>
+<p>对于本实验中 speed=0.35 / 0.18 的游走实体，预测中心为上一步真实位置、位置已按两位小数取整、位于 clamp 范围内、只推进一步且没有外部位移时，每轴最多移动 speed，XZ 距离最多为 speed × √2，分别约 0.495 / 0.255。边界下限 0.5 已覆盖这两种移动，因此这些条件下容易在构造上命中。一般 speed 可保守加 √2 × 0.005 的位置取整误差；clamp 在原位置位于范围内时不会增大位移。</p>
+<p>追逐随机目标模式使用 <code>max(reach(v̂自身), reach(v̂目标)) + 0.5</code>，最小边界为 1.0；本场景追逐者一步正常移动含取整误差最多约 0.487，因此当预测中心仍是当前位置时也容易覆盖。模式切换、外部移动、多步推进或不同参数不属于上述保证。扰动实验先生成预测，再移动目标，随后用新观测检验，会产生真实 miss。</p>
+<p>“本步结果”只统计画布选中的 Tick；“实验汇总”统计已保存的所有验证步。回看旧快照时，记忆保存属于实验运行结束后的状态。图中关系累计自历史推断，上游没有边的时间戳、衰减或当前有效性字段，因此不能据此断言关系在当前仍成立。</p>
+<p><a href="/">返回实验台</a></p>
+</main></body></html>

@@ -1,0 +1,7 @@
+0.3.1-preview 后端回归复跑摘要（非原始 stdout 全量日志）
+日期：2026-10-09
+命令：python -X utf8 -m unittest discover -s tests -v
+结果：Ran 29 tests in 11.506s / OK
+数据：每项测试使用临时目录；无真实模型请求。
+有一条既有 Starlette TestClient/httpx 弃用提示。
+真实模型验收单独记录于 stability-031-real-validation.json。
