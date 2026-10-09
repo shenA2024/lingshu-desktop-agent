@@ -4,11 +4,11 @@
 
 [![Checks](https://github.com/shenA2024/lingshu-desktop-agent/actions/workflows/checks.yml/badge.svg)](https://github.com/shenA2024/lingshu-desktop-agent/actions/workflows/checks.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.0.2-blue.svg)](https://github.com/shenA2024/lingshu-desktop-agent/releases/tag/v0.0.1)
+[![Version](https://img.shields.io/badge/version-0.0.2-blue.svg)](https://github.com/shenA2024/lingshu-desktop-agent/releases/tag/v0.0.2)
 
 从一个想法开始。一个简洁的 Windows 本地工作台，把 DeepSeek Harness 对话、灵枢世界模型实验、逐步回放和独立记忆放在同一界面。
 
-**当前源码版本：0.0.2 Windows 开发预览。** 已发布的下载包仍为 0.0.1；0.0.2 可从本分支源码运行，更新记录见 [CHANGELOG](CHANGELOG.md)。本项目由社区维护，基于 [Lingshu](https://github.com/FuRongJun-1999/lingshu)、[dsh-memory](https://github.com/FuRongJun-1999/dsh-memory) 和本机 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)，是独立的桌面工作台项目。
+**当前版本：0.0.2 Windows 体验版。** 下载与更新记录见 [GitHub Release](https://github.com/shenA2024/lingshu-desktop-agent/releases/tag/v0.0.2) 和 [CHANGELOG](CHANGELOG.md)。本项目由社区维护，基于 [Lingshu](https://github.com/FuRongJun-1999/lingshu)、[dsh-memory](https://github.com/FuRongJun-1999/dsh-memory) 和本机 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)，是独立的桌面工作台项目。
 
 ![灵枢桌面工作台](docs/images/home-light.png)
 
@@ -24,7 +24,7 @@
 
 ## 下载与安装
 
-[下载 0.0.1 体验包](https://github.com/shenA2024/lingshu-desktop-agent/releases/tag/v0.0.1)，解压到自己的应用目录。
+[下载 0.0.2 体验包](https://github.com/shenA2024/lingshu-desktop-agent/releases/tag/v0.0.2)，解压到自己的应用目录。Release 同时提供 ZIP 和 SHA-256 校验文件。
 
 环境要求：Windows、**Python 3.13**、PowerShell；对话功能还需要已安装的 **DeepSeek Harness 0.2.0-rc.2** 及可用的模型凭据。手动实验无需模型。首次安装需联网下载锁定的依赖。
 
@@ -32,6 +32,8 @@
 2. 双击 `启动灵枢.cmd`，以 Edge 应用窗口打开；系统未安装 Edge 时使用默认浏览器。
 3. 在对话右上角的模型设置填写自己的 Harness 可执行文件位置。
 4. 安装或启动异常时，运行 `检查环境.cmd`；此检查不会发起模型请求。
+
+从 0.0.1 升级时，先停止服务，将新版本程序文件覆盖到原目录，保留原来的 `data/`，再运行 `首次安装.cmd` 和 `启动灵枢.cmd`。旧对话、实验和模型设置继续使用；升级前可在「设置 → 通用」下载可见数据备份。
 
 当前是 **Python 本地服务 + 浏览器界面**，尚无独立 EXE 安装器。默认地址是 <http://127.0.0.1:8787>。
 
@@ -102,7 +104,7 @@ cd lingshu-desktop-agent
 python .\scripts\build_release.py
 ```
 
-29 项后端回归、真实 Harness 实验 / 查询 / 召回、70 项浏览器检查和 2683 项配色检查已有独立记录。协议夹具与真实模型验收分开记录；测试不会发送模型请求。GitHub Actions 在 Windows / Python 3.13 上运行回归和发布包完整性检查。
+0.0.2 已通过本地 37 项后端检查、20 组浏览器检查及 7 项补充界面检查，并完成真实模型调用外部 MCP 和英文续聊。旧版本的 70 项浏览器检查和 2683 项配色检查保留为历史记录。协议夹具与真实模型验收分开记录；自动测试不会发送模型请求。GitHub Actions 在 Windows / Python 3.13 上运行回归、JavaScript 语法与发布包完整性检查；未安装 Harness 时跳过 3 项运行时集成检查。
 
 安装包由显式白名单生成于 `dist/`，包含 SHA-256 文件和逐文件清单。参见 [验证记录](VALIDATION.md)、[Harness 集成](DSH_INTEGRATION.md)、[贡献说明](CONTRIBUTING.md) 与 [版本规则](VERSIONING.md)。日常迭代只递增最后一位。
 

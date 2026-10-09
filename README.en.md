@@ -4,7 +4,7 @@
 
 Start with an idea. A local Windows workbench that brings together DeepSeek Harness conversations, Lingshu world-model experiments, replay and isolated memory.
 
-**Source version: 0.0.2 development preview.** The published downloadable preview is still [0.0.1](https://github.com/shenA2024/lingshu-desktop-agent/releases/tag/v0.0.1). See the [changelog](CHANGELOG.md) for this branch.
+**Current version: 0.0.2 Windows preview.** Download the ZIP and SHA-256 checksum from the [GitHub Release](https://github.com/shenA2024/lingshu-desktop-agent/releases/tag/v0.0.2). See the [changelog](CHANGELOG.md) for changes.
 
 ![English interface](docs/images/home-en.png)
 
@@ -26,12 +26,13 @@ Requirements: Windows, Python 3.13 and PowerShell. Chat requires **DeepSeek Harn
 ```powershell
 git clone https://github.com/shenA2024/lingshu-desktop-agent.git
 cd lingshu-desktop-agent
-# Select the branch containing 0.0.2 when working with this development preview.
 .\setup.ps1 -Python python
 .\start.ps1 -Desktop
 ```
 
 You can also use the bundled `.cmd` launchers. The app is a Python local service with a browser or Edge app window, not a standalone EXE installer. It binds to `http://127.0.0.1:8787` by default. Stop it with `.\stop.ps1`.
+
+To upgrade from 0.0.1, stop the service, copy the new program files into the existing app directory while preserving `data/`, then run the installation and launch scripts. Existing chats, experiments and model settings remain available. You can download a visible-data backup under Settings → General before upgrading.
 
 Set the installed Harness executable in Model settings. Models offered are DeepSeek Flash and V4 Pro, with High or Maximum reasoning. The real integration check used Flash / High. Other runtime versions and model providers are not verified.
 
