@@ -29,10 +29,11 @@ jobs:
       - name: JavaScript syntax
         shell: pwsh
         run: |
-          node --check harness_runner.cjs
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check static/app.js
-          exit $LASTEXITCODE
+          $scripts = @('harness_runner.cjs', 'external_mcp.cjs') + @(Get-ChildItem static -Filter '*.js' | ForEach-Object FullName)
+          foreach ($script in $scripts) {
+            node --check $script
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
       - name: Build and verify release package
         shell: pwsh
         run: |

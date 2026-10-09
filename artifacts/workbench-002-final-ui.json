@@ -1,0 +1,14 @@
+{
+  "version": "0.0.2",
+  "checks": [
+    "immediate-service-language",
+    "chat-footer-and-list-status",
+    "built-in-tool-label-and-preserved-payload",
+    "sanitized-turn-error-language",
+    "unsupported-runtime-language",
+    "language-switch-back",
+    "mobile-font20-layout"
+  ],
+  "fixtureScope": "Only chat/status responses are UI fixtures; no model invocation is claimed.",
+  "errors": []
+}

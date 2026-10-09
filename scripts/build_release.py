@@ -13,19 +13,23 @@ from version import VERSION
 
 FIXED = [
     'version.py', 'VERSIONING.md', 'agent.py', 'harness_runner.cjs', 'workbench.py',
+    'tool_connections.py', 'tool_launch.py', 'external_mcp.cjs',
     'metrics.py', 'mcp_bridge.py', 'data_backup.py', 'doctor.py', 'dependencies.py',
     'bootstrap.py', 'dependencies.lock.json', 'config.json', 'requirements.txt',
     'requirements-dev.txt', 'setup.ps1', 'start.ps1', 'stop.ps1', '启动灵枢.cmd',
     '首次安装.cmd', '检查环境.cmd', 'README.md', 'DSH_INTEGRATION.md', 'THIRD_PARTY.md',
     'VALIDATION.md', '桌面Agent体验说明.md', 'LICENSE', 'CONTRIBUTING.md',
-    'scripts/build_release.py',
+    'scripts/build_release.py', 'README.en.md', 'CHANGELOG.md',
+    'docs/FEATURE_RESEARCH.md', 'docs/MCP_CONNECTIONS.md',
 ]
 EVIDENCE = [
     'stability-031-home.png', 'stability-031-data-light.png',
     'stability-031-data-dark.png', 'stability-031-data-warm.png',
     'stability-031-real-validation.json', 'stability-031-ui-validation.json',
     'stability-031-contrast-validation.json', 'stability-031-unittest.txt',
-    'agent-real-validation.json',
+    'agent-real-validation.json', 'workbench-002-browser.json',
+    'workbench-002-real-tools.json', 'workbench-002-interaction.json',
+    'workbench-002-final-ui.json',
 ]
 FORBIDDEN = {'data', '.venv', '.git', 'vendor', 'references', 'harness-home', '__pycache__'}
 PREFIX = f'lingshu-desktop-agent-{VERSION}-preview/'

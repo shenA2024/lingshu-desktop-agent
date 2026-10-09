@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>灵枢 · 备份与恢复</title>
-<style>body{margin:48px auto;padding:0 24px;max-width:760px;font:16px/1.8 system-ui,sans-serif;color:#243249;background:#fff}h1{font-size:28px}h2{font-size:20px;margin-top:32px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f5f8;padding:16px;border-radius:8px;font-size:14px}a{color:#245caa}li{margin:8px 0}@media(prefers-color-scheme:dark){body{color:#e2e8f0;background:#171a20}pre{background:#232832}a{color:#a8c7ff}}</style></head>
+<style>body{margin:48px auto;padding:0 24px;max-width:760px;font:16px/1.8 system-ui,sans-serif;color:#243249;background:#fff}h1{font-size:28px}h2{font-size:20px;margin-top:32px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f5f8;padding:16px;border-radius:8px;font-size:14px}a{color:#245caa}li{margin:8px 0}@media(prefers-color-scheme:dark){body{color:#e2e8f0;background:#171a20}pre{background:#232832}a{color:#a8c7ff}}</style><script src="/static/i18n.js"></script><script src="/static/i18n-en.js"></script></head>
 <body><h1>备份与恢复</h1><p>在「设置 → 通用 → 数据备份」下载 ZIP。请先完成或停止正在运行的对话与实验。</p>
 <h2>保存哪些内容</h2><p>备份保存应用中的对话、工具记录、完整实验轨迹和记忆笔记，并附文件摘要。它包含你的对话内容，请作为个人数据保存。</p><p>模型密钥、账号凭据、Harness 原始会话与推理日志、依赖缓存和浏览器外观偏好不包含在内。</p>
 <h2>恢复到新目录</h2><p>在灵枢目录打开 PowerShell，用已安装依赖的 Python 执行：</p>
@@ -10,4 +10,9 @@
 $env:LINGSHU_WORKBENCH_PORT = '8799'
 .\.venv\Scripts\python.exe -X utf8 .\workbench.py</pre>
 <p>打开 <a href="http://127.0.0.1:8799">http://127.0.0.1:8799</a>。用 Ctrl+C 停止该实例。</p>
-<h2>恢复后的对话</h2><p>对话历史可以查看、搜索、重命名和导出。由于原始 Harness 会话未备份，恢复的历史记录为只读；继续工作请新建对话。实验轨迹可以回放，记忆笔记可以召回。模型凭据需要在本机重新配置或沿用本机 Harness 配置。</p><p>如已安装到其他 Python 环境，请将上述 Python 路径替换为实际路径。</p><p><a href="/">返回灵枢</a></p></body></html>
+<h2>恢复后的对话</h2><p>对话历史可以查看、搜索、重命名和导出。由于原始 Harness 会话未备份，恢复的历史记录为只读；继续工作请新建对话。实验轨迹可以回放，记忆笔记可以召回。模型凭据需要在本机重新配置或沿用本机 Harness 配置。</p><p>如已安装到其他 Python 环境，请将上述 Python 路径替换为实际路径。</p><p><a href="/">返回灵枢</a></p><script>
+const lang=new URLSearchParams(location.search).get('lang');
+let saved;try{saved=JSON.parse(localStorage.getItem('lingshu-ui-v1'))?.language;}catch{}
+document.documentElement.lang=(lang||saved)==='en'?'en':'zh-CN';
+LingshuI18n.capture(document);LingshuI18n.apply();
+</script></body></html>

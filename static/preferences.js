@@ -3,12 +3,12 @@
 window.LingshuPreferences = (() => {
   const key = 'lingshu-ui-v1';
   const defaults = Object.freeze({
-    theme: 'light', background: 'clean', style: 'radar', motion: true, whale: true,
+    fontSize: '14', language: 'zh-CN', theme: 'light', background: 'clean', style: 'radar', motion: true, whale: true,
     grid: false, trails: true, predictions: true, sidebar: false,
     replay: false, autoMemory: true,
     results: true, events: true, memory: true, connections: true, graph: true
   });
-  const choices = {theme: ['light', 'dark', 'warm', 'system'], background: ['clean', 'warm', 'ocean'], style: ['radar', 'whale']};
+  const choices = {fontSize: Array.from({length:9},(_,i)=>String(i+12)), language: ['zh-CN','en'], theme: ['light', 'dark', 'warm', 'system'], background: ['clean', 'warm', 'ocean'], style: ['radar', 'whale']};
   let prefs = {...defaults}, onChange = () => {};
   try {
     const saved = JSON.parse(localStorage.getItem(key));
@@ -24,6 +24,8 @@ window.LingshuPreferences = (() => {
   const darkQuery = matchMedia('(prefers-color-scheme: dark)');
   const reducedQuery = matchMedia('(prefers-reduced-motion: reduce)');
   function applyAppearance() {
+    document.documentElement.style.setProperty('--ui-scale',String(Number(prefs.fontSize)/14));
+    if(document.documentElement.lang!==prefs.language){document.documentElement.lang=prefs.language;window.LingshuI18n?.apply();}
     document.documentElement.dataset.theme = prefs.theme === 'system' ? (darkQuery.matches ? 'dark' : 'light') : prefs.theme;
     document.documentElement.dataset.background = prefs.background;
     document.documentElement.dataset.sceneStyle = prefs.style;
@@ -40,18 +42,21 @@ window.LingshuPreferences = (() => {
       if (control.type === 'checkbox') control.checked = value;
       else control.value = value;
     });
+    const fontOutput=document.getElementById('setting-font-output');if(fontOutput)fontOutput.value=prefs.fontSize+' px';
     const whaleToggle = document.querySelector('[data-preference="whale"]');
     if (whaleToggle) whaleToggle.disabled = prefs.style !== 'whale';
     const note = document.getElementById('motion-note');
-    if (note) note.textContent = reducedQuery.matches ? '系统已启用减少动态效果，当前以静态方式显示。' : '实时运行时平滑移动；回看与外部扰动直接显示观测位置。';
+    if (note) note.textContent = reducedQuery.matches ? tr('系统已启用减少动态效果，当前以静态方式显示。') : tr('实时运行时平滑移动；回看与外部扰动直接显示观测位置。');
   }
   function save() {
     try { localStorage.setItem(key, JSON.stringify({version: 1, ...prefs})); } catch { /* Keep the current session usable. */ }
   }
   function set(name, value) {
     if (!(name in defaults) || !(choices[name] ? choices[name].includes(value) : typeof value === 'boolean')) return;
+    if(prefs[name]===value)return;
     prefs[name] = value;
     save(); applyAppearance(); syncControls(); onChange(name);
+    window.LingshuSelect?.sync();if(name==='language')document.dispatchEvent(new CustomEvent('lingshu:language'));
   }
   function selectTab(name) {
     document.querySelectorAll('[data-settings-tab]').forEach(tab => {
@@ -68,6 +73,7 @@ window.LingshuPreferences = (() => {
     });
     document.querySelectorAll('[data-preference]').forEach(control => {
       control.onchange = () => set(control.dataset.preference, control.type === 'checkbox' ? control.checked : control.value);
+      if(control.type==='range')control.oninput=control.onchange;
     });
     const tabs = [...document.querySelectorAll('[data-settings-tab]')];
     const compactQuery = matchMedia('(max-width: 760px)');
@@ -86,7 +92,7 @@ window.LingshuPreferences = (() => {
       };
     });
     document.getElementById('reset-layout').onclick = () => {
-      prefs = {...defaults}; save(); applyAppearance(); syncControls(); onChange('reset');
+      prefs = {...defaults}; save(); applyAppearance(); syncControls(); onChange('reset');document.dispatchEvent(new CustomEvent('lingshu:language'));window.LingshuSelect?.sync();
     };
     syncControls(); onChange('init');
   }
